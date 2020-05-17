@@ -4,30 +4,91 @@ import Dashboard from '@/components/Dashboard'
 import NewContact from '@/components/NewContact'
 import ViewContact from '@/components/ViewContact'
 import EditContact from '@/components/EditContact'
+import Login from '@/components/Login'
+import Register from '@/components/Register'
+import firebase from 'firebase'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   routes: [
     {
       path: '/',
       name: 'dashboard',
-      component: Dashboard
+      component: Dashboard,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
+      meta: {
+        requiresGuest: true
+      }
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register,
+      meta: {
+        requiresGuest: true
+      }
     },
     {
       path: '/new',
       name: 'new-contact',
-      component: NewContact
+      component: NewContact,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/edit/:contact_id',
       name: 'edit-contact',
-      component: EditContact
+      component: EditContact,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/:contact_id',
       name: 'view-contact',
-      component: ViewContact
+      component: ViewContact,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })
+// Nav guards
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!firebase.auth().currentUser) {
+      next({
+        path: '/login',
+        query: {
+          redirect: to.fullPath
+        }
+      })
+    } else {
+      next()
+    }
+  } else if (to.matched.some(record => record.meta.requiresGuest)) {
+    if (firebase.auth().currentUser) {
+      next({
+        path: '/',
+        query: {
+          redirect: to.fullPath
+        }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
+
+export default router
