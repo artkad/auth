@@ -7,7 +7,7 @@
         v-bind:key="contact.id" class="collection-item">
         <div class="chip">{{contact.dept}}</div>{{contact.contact_id}}:{{contact.name}}
         <router-link class="secondary-content" v-bind:to="{name: 'view-contact', params: {contact_id: contact.contact_id}}">
-          <i class="fa fa-eye"></i>
+          <i class="fa fa-edit"></i>
         </router-link>
         </li>
       </ul>

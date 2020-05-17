@@ -1,21 +1,32 @@
-# vue_auth
+Приложение контактов
 
-> authentification and managet contacts whith Vue
+Приложение распложено по адресу http://testbywork.site/
 
-## Build Setup
+При переходе открывается главная страница, где нужно ввести логин/пароль. Есть валидация на пустые или неверно введенные данные.
+root@root.com  123456  это данные для входа уже имеющиеся в базе firebase.
+Можно зарегистрировать свой логин и пароль перейдя по ссылке Register в верхнем меню.
+После входа в приложение вы увидете список контактов ранее введенных в базу.
 
-``` bash
-# install dependencies
-npm install
+В шапке указано имя пользователя, кнопка выхода, а так же Dashboard на список контактов для возврата.
 
-# serve with hot reload at localhost:8080
-npm run dev
+В центральной части экрана список контактов и кнопка просмотра в правой части.
+В правом нижнем углу кнопка плюс для создания нового контакта.
 
-# build for production with minification
-npm run build
+В просмотре контакта есть кнопки для возврата в список контактов, удаление контакта из базы и редактирование контакта в правом нижнем углу.
 
-# build for production and view the bundle analyzer report
-npm run build --report
-```
+В режиме редактирования контакта Id изменить нельзя. Кнопка Submin подтверждает измененние в базу firebase.
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+В режиме ввода нового сотрудника есть четыре поля для ввода информации, Id вводится в произвольной форме.
+
+При обновлении страницы данные не теряются. При входе в систему, в навигации доступны только кнопки выход и ссылки Dashboard и  Contact manager для перехода в список контактов.
+
+При выходе в навигации видны ссылки Login и Register. Данные недоступны при переходе по прямой ссылке добавляя после домена /new  /edit  /
+
+
+Используемые инструменты:
+  - materialize css
+  - font-awesome
+  - fonts.googleapis.com
+  - webpack
+  - Firebase
+  - Vue
