@@ -8,6 +8,13 @@
     </ul>
     <router-link to="/" class="btn grey">Back</router-link>
     <button v-on:click="deleteContact" class="btn red">Delete</button>
+    <!-- <button @click="deleteContact" class="btn red">Delete</button> -->
+
+    <div class="fixed-action-btn">
+      <router-link v-bind:to="{name: 'edit-contact', params: {contact_id: contact_id}}" class="btn-floating btn-large red">
+        <i class="fa fa-pencil"></i>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -40,7 +47,7 @@ export default {
   watch: {
     '$route': 'fenchData'
   },
-  nethods: {
+  methods: {
     fetchData () {
       db.collection('contacts').where('contact_id', '==', this.$route.params.contact_id).get().then(querySnapshot => {
         querySnapshot.forEach(doc => {
@@ -53,18 +60,18 @@ export default {
     },
     deleteContact () {
       if (confirm('Are you sure?')) {
-        db.collection('contacts').where('contact_id', '==', this.$route.params.contact_id).get().then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            doc.ref.delete()
-            this.$router.push('/')
+        db
+          .collection('contacts')
+          .where('contact_id', '==', this.$route.params.contact_id)
+          .get()
+          .then(querySnapshot => {
+            querySnapshot.forEach(doc => {
+              doc.ref.delete()
+              this.$router.push('/')
+            })
           })
-        })
       }
     }
   }
 }
 </script>
-
-<style>
-
-</style>
